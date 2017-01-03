@@ -2,6 +2,7 @@
 \begin{document}
 Under the assumption of uniformly distributed hashes in one set, the probability of some hash $B$ sharing hash $A$'s value is $\frac{1}{N}$, where $N$ is the number of possible hashes. The probability that $B$ is not the same value as $A$ is then $1 - \frac{1}{N}$. The probability that $n - 1$ other hashes do not have the same value as $A$ is $(1 - \frac{1}{N})^{n - 1}$. The expected number of hashes in a set of $n$ hashes that aren't the same is then
 \begin{equation}
+\label{eq:notsame}
 n(1 - \frac{1}{N})^{n - 1}
 \end{equation}.
 
@@ -9,10 +10,27 @@ In a rainbow table, this leads to an expression for the expected number of uniqu
 \begin{equation}
 E[c_0] = n_0,
 \end{equation}
+
 \begin{equation}
 E[c_{i+1}] = E[c_i] - E[c_i](1 - \frac{1}{N})^{E[C_i] - 1}.
 \end{equation}
 
 If we instead want to calculate the expected number of unique hashes in one or multiple tables, we also have to consider collisions between columns. While these collisions won't merge, they still represent duplicates that lower the efficiency of the table. 
+
+The expected unique hashes in the first column is just the number of unique chains:
+
+\begin{equation}
+E[h_0] = E[c_0]
+\end{equation}
+
+where in the following columns, we add hashes equal to the number of unique chains, and subtract expected collisions with the expected hashes generated in all previous columns. This expectation is a negation of the expectation in eq. \ref{eq:notsame}:
+\begin{equation}
+n(1 - \frac{1}{N})^{n - 1},
+\end{equation}
+that is, the expected number of hashes that do share a value in a set of $n$. 
+
+\begin{equation}
+E[h_{i+1}] = E[h_i] + E[c_i] - 
+\end{equation}
 
 \end{document} 
