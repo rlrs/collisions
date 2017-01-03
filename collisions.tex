@@ -10,7 +10,7 @@ In a rainbow table, this leads to an expression for the expected number of uniqu
 E[c_0] = n_0,
 \end{equation}
 \begin{equation}
-E[c_{n+1}] = E[c_n] - E[c_n](1 - \frac{1}{N})^{E[C_n] - 1}.
+E[c_{i+1}] = E[c_i] - E[c_i](1 - \frac{1}{N})^{E[C_i] - 1}.
 \end{equation}
 
 If we instead want to calculate the expected number of unique hashes in one or multiple tables, we also have to consider collisions between columns. While these collisions won't merge, they still represent duplicates that lower the efficiency of the table. 
