@@ -3,10 +3,18 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from collections import Counter
 
+def mwc64x(state):
+    c = state >> 32
+    x = state & 0xffffffff
+    state = x * 4294883355 + c
+    c = state >> 32
+    x = state & 0xffffffff
+    return x ^ c
+
 N = 2**14
 L = 100
 m = 100
-iters = 100
+iters = 10
 nuniq = []
 
 
@@ -20,7 +28,7 @@ print(it_expected_hashes)
 expected_hashes = m - (m * (pow(1.0 - 1.0/N , m) - pow(1.0 - 1.0/N, L * m))) / (pow(1.0 - 1.0/N, m) - 1.0)
 print(expected_hashes)
 
-# simulate
+# simplified simulation
 for i in range(iters):
     chains = []
     for l in range(L):
@@ -35,3 +43,9 @@ print(s.mean())
 plt.figure()
 s.plot(kind='hist')
 plt.show()
+
+state = 10
+print(mwc64x(state))
+print(state)
+
+
